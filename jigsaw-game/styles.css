@@ -1,0 +1,378 @@
+/* ============================================================
+   Jigsaw Puzzle — styles
+   ============================================================ */
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body { height: 100%; margin: 0; }
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  color: #f4f1ff;
+  background:
+    radial-gradient(900px 620px at 85% -10%, rgba(139, 92, 246, .30), transparent 60%),
+    radial-gradient(820px 600px at -10% 110%, rgba(236, 72, 153, .22), transparent 60%),
+    radial-gradient(500px 400px at 50% 45%, rgba(59, 130, 246, .12), transparent 70%),
+    linear-gradient(160deg, #161039, #221247 48%, #101736);
+  background-attachment: fixed;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.hidden { display: none !important; }
+
+.screen { height: 100vh; height: 100dvh; }
+
+/* ============ SETUP SCREEN ============ */
+#setup {
+  overflow-y: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 16px calc(28px + env(safe-area-inset-bottom, 0px));
+}
+
+.card {
+  width: 100%;
+  max-width: 520px;
+  background: rgba(255, 255, 255, .07);
+  border: 1px solid rgba(255, 255, 255, .16);
+  border-radius: 26px;
+  padding: 30px 26px 26px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .45);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.logo {
+  margin: 0 0 4px;
+  font-size: clamp(30px, 7vw, 40px);
+  font-weight: 800;
+  letter-spacing: 1px;
+  background: linear-gradient(120deg, #c4b5fd, #f9a8d4 55%, #fbbf24);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-align: center;
+}
+
+.tagline {
+  margin: 0 0 22px;
+  text-align: center;
+  color: #b9b3d9;
+  font-size: clamp(13px, 3.4vw, 14.5px);
+  line-height: 1.55;
+}
+.tagline strong { color: #a7f3d0; }
+
+/* --- dropzone --- */
+.dropzone {
+  position: relative;
+  border: 2px dashed rgba(255, 255, 255, .28);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, .04);
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color .2s, background .2s, box-shadow .2s;
+}
+.dropzone:hover, .dropzone:focus-visible, .dropzone.over {
+  border-color: #c4b5fd;
+  background: rgba(139, 92, 246, .12);
+  box-shadow: 0 0 0 4px rgba(139, 92, 246, .15);
+  outline: none;
+}
+.dz-inner { text-align: center; padding: 26px 14px; }
+.dz-icon { font-size: 42px; margin-bottom: 10px; filter: drop-shadow(0 4px 10px rgba(0,0,0,.4)); }
+.dz-inner p { margin: 0; line-height: 1.5; font-size: 15px; }
+.dz-inner strong { font-size: 16px; }
+.dz-inner span { color: #b9b3d9; font-size: 13px; }
+
+.dropzone.has-img { border-style: solid; border-color: rgba(52, 211, 153, .5); }
+.dropzone.has-img .dz-inner { display: none; }
+.dz-preview {
+  display: block;
+  max-width: 100%;
+  max-height: 210px;
+  margin: 0 auto;
+  border-radius: 14px;
+  padding: 6px;
+}
+
+/* --- tile size --- */
+.option { margin-top: 20px; }
+.opt-label {
+  display: block;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  color: #b9b3d9;
+  margin-bottom: 10px;
+}
+.size-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(104px, 1fr));
+  gap: 10px;
+}
+.size-btn {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, .18);
+  background: rgba(255, 255, 255, .05);
+  color: #f4f1ff;
+  border-radius: 14px;
+  padding: 12px 6px 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .18s;
+  touch-action: manipulation;
+}
+.size-btn small {
+  display: block;
+  margin-top: 3px;
+  font-size: 11.5px;
+  font-weight: 400;
+  color: #b9b3d9;
+}
+.size-btn:hover { background: rgba(255, 255, 255, .1); transform: translateY(-1px); }
+.size-btn.selected {
+  background: linear-gradient(135deg, rgba(139, 92, 246, .55), rgba(236, 72, 153, .55));
+  border-color: rgba(244, 165, 255, .7);
+  box-shadow: 0 6px 18px rgba(139, 92, 246, .35);
+}
+
+/* --- buttons --- */
+.btn {
+  appearance: none;
+  border: none;
+  border-radius: 14px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: transform .15s, box-shadow .15s, opacity .15s, background .15s;
+  touch-action: manipulation;
+  font-family: inherit;
+}
+.btn:active { transform: scale(.96); }
+.btn.primary {
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  box-shadow: 0 10px 24px rgba(236, 72, 153, .35);
+}
+.btn.primary:hover { box-shadow: 0 12px 30px rgba(236, 72, 153, .5); transform: translateY(-1px); }
+.btn.primary:disabled {
+  opacity: .38;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+.btn.ghost {
+  background: rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, .18);
+  color: #dcd6ff;
+  font-weight: 600;
+}
+.btn.ghost:hover { background: rgba(255, 255, 255, .14); }
+.btn.big { width: 100%; padding: 15px; font-size: 17px; margin-top: 22px; }
+#sampleBtn { width: 100%; padding: 11px; margin-top: 10px; }
+.btn.small {
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, .09);
+  border: 1px solid rgba(255, 255, 255, .16);
+  color: #e7e2ff;
+  white-space: nowrap;
+}
+.btn.small:hover { background: rgba(255, 255, 255, .16); }
+
+/* ============ GAME SCREEN ============ */
+#game { display: flex; flex-direction: column; }
+
+.hud {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  padding-top: calc(9px + env(safe-area-inset-top, 0px));
+  background: rgba(255, 255, 255, .06);
+  border-bottom: 1px solid rgba(255, 255, 255, .12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 5;
+}
+.hud-title { font-weight: 800; font-size: 18px; white-space: nowrap; }
+.hud-stats { display: flex; gap: 8px; flex: 1; justify-content: center; min-width: 0; }
+.chip {
+  background: rgba(255, 255, 255, .09);
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.hud-btns { display: flex; gap: 7px; }
+
+.stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+#playfield {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.hint {
+  position: absolute;
+  left: 50%;
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  max-width: min(92%, 480px);
+  text-align: center;
+  background: rgba(20, 12, 45, .82);
+  border: 1px solid rgba(255, 255, 255, .18);
+  color: #e7e2ff;
+  font-size: 13.5px;
+  line-height: 1.45;
+  padding: 10px 16px;
+  border-radius: 999px;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+.hint.gone { opacity: 0; }
+
+/* --- puzzle pieces --- */
+.piece {
+  position: absolute;
+  cursor: grab;
+  touch-action: none;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, .45));
+  will-change: left, top;
+}
+.piece.dragging {
+  cursor: grabbing;
+  /* !important: needed to override the inline filter set by renderPiece() */
+  filter: drop-shadow(0 14px 18px rgba(0, 0, 0, .55)) !important;
+  transform: scale(1.06);
+}
+.piece.snap-hint {
+  filter: drop-shadow(0 0 10px rgba(52, 211, 153, .95)) drop-shadow(0 0 4px rgba(52, 211, 153, .8)) !important;
+}
+.piece.snapping {
+  transition: left .22s cubic-bezier(.2, .85, .3, 1), top .22s cubic-bezier(.2, .85, .3, 1);
+}
+.piece.fused {
+  animation: fusePulse .45s ease;
+}
+@keyframes fusePulse {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.07); filter: drop-shadow(0 0 12px rgba(52, 211, 153, .95)); }
+  100% { transform: scale(1); }
+}
+
+/* --- overlays --- */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(12, 8, 30, .74);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+  z-index: 100;
+  overflow: hidden;
+}
+.preview-box { text-align: center; max-width: 88%; }
+.preview-box img {
+  max-width: min(88vw, 900px);
+  max-height: 74vh;
+  max-height: 74dvh;
+  border-radius: 14px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, .6);
+  display: block;
+  margin: 0 auto 14px;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+.muted { color: #b9b3d9; font-size: 13px; }
+
+.win-bar {
+  position: absolute;
+  left: 50%;
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  transform: translate(-50%, 140%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  max-width: min(94%, 560px);
+  padding: 12px 18px;
+  border-radius: 20px;
+  background: rgba(20, 12, 45, .9);
+  border: 1px solid rgba(255, 255, 255, .22);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 60;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .4s cubic-bezier(.2, .9, .3, 1.15), opacity .3s;
+}
+.win-bar.show {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.win-title {
+  font-weight: 800;
+  font-size: 16px;
+  background: linear-gradient(120deg, #fbbf24, #f472b6, #a78bfa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  white-space: nowrap;
+}
+#winStats { color: #d6d1f0; font-size: 14px; white-space: nowrap; }
+.win-btns { display: flex; gap: 8px; }
+
+/* --- confetti --- */
+.confetti {
+  position: absolute;
+  top: -16px;
+  width: 10px;
+  height: 15px;
+  opacity: .95;
+  z-index: 55;
+  animation-name: confFall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  pointer-events: none;
+}
+@keyframes confFall {
+  to { transform: translateY(106vh) rotate(720deg); opacity: .65; }
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 620px) {
+  .hud-title span { display: none; }
+  .hud .btn-text { display: none; }
+  .chip { padding: 5px 10px; font-size: 12px; }
+  .card { padding: 24px 18px 20px; border-radius: 22px; }
+  .win-bar { padding: 10px 14px; gap: 6px 10px; border-radius: 16px; }
+  #winStats { white-space: normal; text-align: center; }
+}
+@media (max-width: 360px) {
+  .hud-stats { gap: 5px; }
+  .btn.small { padding: 8px 9px; }
+}

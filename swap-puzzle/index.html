@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>🔲 Swap Puzzle</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔲</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ============ SETUP SCREEN ============ -->
+  <section id="setup" class="screen">
+    <div class="card">
+      <h1 class="logo">🔲 Swap Puzzle</h1>
+      <p class="tagline">Rectangular tiles, shuffled into a grid.<br><strong>Swap</strong> them two at a time to rebuild the picture!</p>
+
+      <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Choose a picture">
+        <input type="file" id="fileInput" accept="image/*" hidden>
+        <div class="dz-inner" id="dzInner">
+          <div class="dz-icon">🖼️</div>
+          <p><strong>Tap to choose a picture</strong><br><span>or drag &amp; drop one here</span></p>
+        </div>
+        <div class="dz-preview-wrap" id="dzWrap" hidden>
+          <img id="previewImg" class="dz-preview" alt="Your chosen picture">
+          <canvas id="gridOverlay"></canvas>
+        </div>
+      </div>
+
+      <div class="crop-tools" id="cropTools" hidden>
+        <span class="crop-hint">✏️ Drag to move the crop · corners resize · double-tap resets</span>
+        <button type="button" class="btn small ghost" id="resetCropBtn">↺ Reset</button>
+        <button type="button" class="btn small ghost" id="changePicBtn">🖼 Change</button>
+      </div>
+
+      <div class="option">
+        <span class="opt-label">Tile size</span>
+        <div class="size-grid" id="sizeGrid">
+          <button class="size-btn" data-n="12">Large<small>~12 tiles</small></button>
+          <button class="size-btn selected" data-n="24">Medium<small>~24 tiles</small></button>
+          <button class="size-btn" data-n="48">Small<small>~48 tiles</small></button>
+          <button class="size-btn" data-n="96">Tiny<small>~96 tiles</small></button>
+          <button class="size-btn" data-n="custom">Custom<small>your grid</small></button>
+        </div>
+      </div>
+
+      <div class="option" id="customPanel" hidden>
+        <span class="opt-label">Custom grid</span>
+        <div class="slider-row">
+          <label>Horizontal tiles <span class="sl-val" id="colsVal">6</span></label>
+          <input type="range" id="colsRange" min="1" max="100" value="6" aria-label="Horizontal tiles">
+        </div>
+        <div class="slider-row">
+          <label>Vertical tiles <span class="sl-val" id="rowsVal">4</span></label>
+          <input type="range" id="rowsRange" min="1" max="100" value="4" aria-label="Vertical tiles">
+        </div>
+        <p class="custom-info" id="customInfo">24 tiles</p>
+      </div>
+
+      <div class="option mode-row">
+        <button id="grayToggle" class="toggle on" role="switch" aria-checked="true" aria-label="Colour reveal mode">
+          <span class="knob"></span>
+        </button>
+        <div class="mode-text">
+          <strong>Colour reveal</strong>
+          <span>Tiles start grey &amp; bloom into colour when placed correctly</span>
+        </div>
+      </div>
+
+      <button id="startBtn" class="btn primary big" disabled>Start Puzzle →</button>
+      <button id="sampleBtn" class="btn ghost">🎈 Try a sample picture</button>
+    </div>
+  </section>
+
+  <!-- ============ GAME SCREEN ============ -->
+  <section id="game" class="screen hidden">
+    <header class="hud">
+      <div class="hud-title">🔲 <span>Swap</span></div>
+      <div class="hud-stats">
+        <span class="chip" id="progressEl">0/0 placed</span>
+        <span class="chip" id="movesEl">0 moves</span>
+        <span class="chip" id="timeEl">00:00</span>
+      </div>
+      <div class="hud-btns">
+        <button id="muteBtn" class="btn small" aria-label="Mute or unmute sound">🔊</button>
+        <button id="autoBtn" class="btn small" aria-label="Auto-solve the puzzle">✨<span class="btn-text"> Solve</span></button>
+        <button id="previewBtn" class="btn small" aria-label="Preview picture">👁<span class="btn-text"> Preview</span></button>
+        <button id="restartBtn" class="btn small" aria-label="Reshuffle tiles">🔀<span class="btn-text"> Shuffle</span></button>
+        <button id="newBtn" class="btn small" aria-label="Choose new picture">🖼<span class="btn-text"> New</span></button>
+      </div>
+    </header>
+
+    <div class="stage">
+      <div id="playfield"><div id="board"></div></div>
+      <div id="hint" class="hint">💡 Tap two tiles to swap — or drag one onto another. Correct tiles bloom into colour &amp; lock in!</div>
+
+      <div id="previewLayer" class="overlay hidden">
+        <div class="preview-box">
+          <img id="previewBig" alt="Puzzle reference">
+          <p class="muted">tap anywhere to close</p>
+        </div>
+      </div>
+
+      <div id="winBar" class="win-bar">
+        <span class="win-title">🎉 Picture Restored!</span>
+        <span id="winStats"></span>
+        <div class="win-btns">
+          <button id="againBtn" class="btn small primary">🔀 Shuffle again</button>
+          <button id="changeBtn" class="btn small ghost">🖼 Change picture</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

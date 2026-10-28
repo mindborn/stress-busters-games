@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>🧩 Stress Busters — image puzzle games</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧩</text></svg>">
+  <style>
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+      color: #f4f1ff;
+      background:
+        radial-gradient(900px 620px at 10% -10%, rgba(45, 212, 191, .22), transparent 60%),
+        radial-gradient(820px 600px at 110% 110%, rgba(251, 191, 36, .18), transparent 60%),
+        linear-gradient(160deg, #0d1b2a, #16283f 48%, #101a33);
+      background-attachment: fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+    .wrap { max-width: 720px; width: 100%; }
+    h1 {
+      margin: 0 0 6px;
+      font-size: clamp(30px, 7vw, 44px);
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-align: center;
+      background: linear-gradient(120deg, #5eead4, #fbbf24 60%, #fb7185);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .tagline { text-align: center; color: #9fb3c8; margin: 0 0 28px; font-size: 15px; }
+    .grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+    a.game {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .16);
+      border-radius: 20px;
+      padding: 20px 22px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: transform .2s ease, border-color .2s ease;
+    }
+    a.game:hover { transform: translateY(-3px); border-color: rgba(94, 234, 212, .55); }
+    .emoji { font-size: 34px; display: inline-block; margin-right: 10px; vertical-align: middle; }
+    .name { font-size: 19px; font-weight: 700; }
+    .desc { color: #b8c6d9; font-size: 14px; margin-top: 8px; line-height: 1.5; }
+    .play { color: #5eead4; font-size: 13.5px; font-weight: 700; margin-top: 12px; display: inline-block; }
+    footer { text-align: center; color: #7d92a8; font-size: 13px; margin-top: 30px; }
+    footer a { color: #9fb3c8; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>🧩 Stress Busters</h1>
+    <p class="tagline">Little offline-friendly image puzzle games — pick a picture, unwind, rebuild it.</p>
+
+    <div class="grid">
+      <a class="game" href="swap-puzzle/">
+        <span class="emoji">🔲</span><span class="name">Swap Puzzle</span>
+        <p class="desc">Your picture sliced into rectangular tiles and shuffled. Tap or drag to swap tiles back into place — correct tiles bloom into colour and lock in. Custom grids, crop tool, auto-solve.</p>
+        <span class="play">▶ Play</span>
+      </a>
+      <a class="game" href="jigsaw-game/">
+        <span class="emoji">🖼️</span><span class="name">Jigsaw Fusion</span>
+        <p class="desc">Classic jigsaw feel — pieces snap home and fuse seamlessly with their placed neighbours until the photo becomes whole again.</p>
+        <span class="play">▶ Play</span>
+      </a>
+      <a class="game" href="apk/SwapPuzzle-release.apk" download>
+        <span class="emoji">🤖</span><span class="name">Android app</span>
+        <p class="desc">Swap Puzzle as an installable Android app (signed release APK, ~7 MB). Also available: <a href="apk/SwapPuzzle-debug.apk" download style="color:#9fb3c8">debug build</a>.</p>
+        <span class="play">⬇ Download</span>
+      </a>
+      <a class="game" href="game-ideas/image-stress-buster-games.md">
+        <span class="emoji">💡</span><span class="name">Game ideas backlog</span>
+        <p class="desc">Twelve more stress-buster concepts with tiers, effort estimates, and the planned build order.</p>
+        <span class="play">📖 Read</span>
+      </a>
+    </div>
+
+    <footer>Open source · <a href="https://github.com/mindborn/stress-busters-games">github.com/mindborn/stress-busters-games</a></footer>
+  </div>
+</body>
+</html>

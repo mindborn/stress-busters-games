@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>🧩 Jigsaw Puzzle</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧩</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ============ SETUP SCREEN ============ -->
+  <section id="setup" class="screen">
+    <div class="card">
+      <h1 class="logo">🧩 Jigsaw</h1>
+      <p class="tagline">Upload a picture, pick a tile size &amp; rebuild it piece by piece.<br>Matching neighbours <strong>snap &amp; fuse</strong> together!</p>
+
+      <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Choose a picture">
+        <input type="file" id="fileInput" accept="image/*" hidden>
+        <div class="dz-inner" id="dzInner">
+          <div class="dz-icon">🖼️</div>
+          <p><strong>Tap to choose a picture</strong><br><span>or drag &amp; drop one here</span></p>
+        </div>
+        <img id="previewImg" class="dz-preview" alt="Your chosen picture" hidden>
+      </div>
+
+      <div class="option">
+        <span class="opt-label">Tile size</span>
+        <div class="size-grid" id="sizeGrid">
+          <button class="size-btn" data-n="12">Large<small>~12 tiles</small></button>
+          <button class="size-btn selected" data-n="24">Medium<small>~24 tiles</small></button>
+          <button class="size-btn" data-n="48">Small<small>~48 tiles</small></button>
+          <button class="size-btn" data-n="96">Tiny<small>~96 tiles</small></button>
+        </div>
+      </div>
+
+      <button id="startBtn" class="btn primary big" disabled>Start Puzzle →</button>
+      <button id="sampleBtn" class="btn ghost">✨ Try a sample picture</button>
+    </div>
+  </section>
+
+  <!-- ============ GAME SCREEN ============ -->
+  <section id="game" class="screen hidden">
+    <header class="hud">
+      <div class="hud-title">🧩 <span>Jigsaw</span></div>
+      <div class="hud-stats">
+        <span class="chip" id="movesEl">0 moves</span>
+        <span class="chip" id="timeEl">00:00</span>
+      </div>
+      <div class="hud-btns">
+        <button id="previewBtn" class="btn small" aria-label="Preview picture">👁<span class="btn-text"> Preview</span></button>
+        <button id="restartBtn" class="btn small" aria-label="Restart puzzle">↺<span class="btn-text"> Restart</span></button>
+        <button id="newBtn" class="btn small" aria-label="Choose new picture">🖼<span class="btn-text"> New</span></button>
+      </div>
+    </header>
+
+    <div class="stage">
+      <div id="playfield"></div>
+      <div id="hint" class="hint">💡 Drag a piece near or <strong>onto</strong> its neighbours — when the target glows green, release to snap &amp; fuse!</div>
+
+      <div id="previewLayer" class="overlay hidden">
+        <div class="preview-box">
+          <img id="previewBig" alt="Puzzle reference">
+          <p class="muted">tap anywhere to close</p>
+        </div>
+      </div>
+
+      <div id="winBar" class="win-bar">
+        <span class="win-title">🎉 Puzzle Solved!</span>
+        <span id="winStats"></span>
+        <div class="win-btns">
+          <button id="againBtn" class="btn small primary">↺ Play again</button>
+          <button id="changeBtn" class="btn small ghost">🖼 Change picture</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
